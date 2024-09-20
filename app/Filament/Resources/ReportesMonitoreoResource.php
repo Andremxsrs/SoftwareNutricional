@@ -11,6 +11,7 @@ use Filament\Tables;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Actions\Action;
 
 class ReportesMonitoreoResource extends Resource
 {
@@ -158,6 +159,11 @@ class ReportesMonitoreoResource extends Resource
             ])
             ->filters([])
             ->actions([
+                // Acción para descargar el PDF
+                Action::make('downloadPdf')
+                    ->label('Descargar PDF')
+                    ->url(fn ($record) => route('download.pdf', ['id' => $record->getKey()])) // Cambia 'record' por 'id'
+                    ->openUrlInNewTab(), // Para abrir el PDF en una nueva pestaña si prefieres
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
